@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MiniCommerce — E‑Commerce Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Top Navigation -->
+  <header class="topbar">
+    <div class="logo">MiniCommerce</div>
+    <nav class="nav">
+      <a href="#home" class="nav-link active" data-section="home">Home</a>
+      <a href="#products" class="nav-link" data-section="products">Products</a>
+      <a href="#about" class="nav-link" data-section="about">About Us</a>
+      <a href="#contact" class="nav-link" data-section="contact">Contact Us</a>
+    </nav>
+    <div class="top-actions">
+      <button id="open-login" class="btn small">Login / Register</button>
+      <button id="view-cart" class="icon-btn" title="Cart">🛒<span id="cart-count" class="count">0</span></button>
+      <button id="view-wishlist" class="icon-btn" title="Wishlist">❤<span id="wish-count" class="count">0</span></button>
+      <button id="menu-toggle" class="hamburger">☰</button>
+    </div>
+  </header>
+
+  <!-- Mobile nav (hidden on desktop) -->
+  <div id="mobile-nav" class="mobile-nav hidden">
+    <a href="#home" class="nav-link" data-section="home">Home</a>
+    <a href="#products" class="nav-link" data-section="products">Products</a>
+    <a href="#about" class="nav-link" data-section="about">About Us</a>
+    <a href="#contact" class="nav-link" data-section="contact">Contact Us</a>
+  </div>
+
+  <main class="container">
+
+    <!-- Home Section -->
+    <section id="home" class="page-section">
+      <div class="hero">
+        <div>
+          <h1>Welcome to MiniCommerce</h1>
+          <p>Small, fast, and easy demo store built with HTML, CSS & vanilla JavaScript.</p>
+          <button id="shop-now" class="btn">Shop Now</button>
+        </div>
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='250'><rect width='100%' height='100%' fill='%23f3f6ff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='18' fill='%23888'>Product Showcase</text></svg>" alt="hero">
+      </div>
+
+      <div class="features">
+        <div class="card small">
+          <h3>Secure Checkout</h3>
+          <p>Simulated payment flow and order management.</p>
+        </div>
+        <div class="card small">
+          <h3>Wishlist</h3>
+          <p>Save products for later.</p>
+        </div>
+        <div class="card small">
+          <h3>Reviews</h3>
+          <p>Customer ratings and comments.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="page-section hidden">
+      <h2>Products</h2>
+      <div class="controls">
+        <div>
+          <label for="view-mode">View:</label>
+          <select id="view-mode">
+            <option value="grid">Grid</option>
+            <option value="list">List</option>
+          </select>
+        </div>
+        <div>
+          <label>Sort:</label>
+          <select id="sort-by">
+            <option value="default">Default</option>
+            <option value="price-asc">Price: Low → High</option>
+            <option value="price-desc">Price: High → Low</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="products-list" class="products grid"></div>
+
+      <!-- Cart & Wishlist Panels -->
+      <aside class="side-panels">
+        <div class="panel" id="cart-panel">
+          <h3>Cart</h3>
+          <ul id="cart-items"></ul>
+          <div class="panel-footer">
+            <strong>Total: ₹<span id="cart-total">0</span></strong>
+            <button id="checkout" class="btn">Checkout</button>
+          </div>
+        </div>
+
+        <div class="panel" id="wish-panel">
+          <h3>Wishlist</h3>
+          <ul id="wish-items"></ul>
+        </div>
+      </aside>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="page-section hidden">
+      <h2>About Us</h2>
+      <p>MiniCommerce is a demo e‑commerce application created for learning and prototyping.</p>
+      <h3>Customer Care</h3>
+      <p>Contact number: <strong>+91 98765 43210</strong></p>
+      <p>Email: <strong>support@minicommerce.example</strong></p>
+      <p>Chat support: <em>(Placeholder) — Chat will be available soon.</em></p>
+
+      <h3>Reporting</h3>
+      <p>If you have an issue (damaged item, refund, etc.) you can report it using the button below.</p>
+      <button id="open-report" class="btn">Report an Issue</button>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="page-section hidden">
+      <h2>Contact Us</h2>
+      <form id="contact-form" class="form">
+        <label>Name <input type="text" id="c-name" required></label>
+        <label>Email <input type="email" id="c-email" required></label>
+        <label>Message <textarea id="c-message" rows="4" required></textarea></label>
+        <button class="btn" type="submit">Send Message</button>
+        <div id="contact-msg" class="form-msg"></div>
+      </form>
+    </section>
+
+    <!-- Reviews Section (on products page) -->
+    <section id="reviews" class="page-section hidden">
+      <h2>Comments & Reviews</h2>
+      <form id="review-form" class="form small-form">
+        <label>Name <input type="text" id="r-name" required></label>
+        <label>Rating <select id="r-rating"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></label>
+        <label>Review <textarea id="r-text" rows="3" required></textarea></label>
+        <button class="btn" type="submit">Submit Review</button>
+      </form>
+      <div id="reviews-list" class="reviews"></div>
+    </section>
+
+  </main>
+
+  <!-- Login / Registration Modal -->
+  <div id="auth-modal" class="modal hidden">
+    <div class="modal-content">
+      <button class="modal-close" id="close-auth">✖</button>
+      <div class="auth-tabs">
+        <button id="tab-login" class="tab active">Login</button>
+        <button id="tab-register" class="tab">Register</button>
+      </div>
+
+      <div id="login-form" class="form">
+        <label>Username or Email <input type="text" id="login-user"></label>
+        <label>Password <input type="password" id="login-pass"></label>
+        <button class="btn" id="do-login">Login</button>
+        <div id="login-msg" class="form-msg"></div>
+      </div>
+
+      <div id="register-form" class="form hidden">
+        <label>Username <input type="text" id="reg-user"></label>
+        <label>Email <input type="email" id="reg-email"></label>
+        <label>Password <input type="password" id="reg-pass"></label>
+        <label>Confirm Password <input type="password" id="reg-pass2"></label>
+        <button class="btn" id="do-register">Register</button>
+        <div id="reg-msg" class="form-msg"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Report Modal -->
+  <div id="report-modal" class="modal hidden">
+    <div class="modal-content small">
+      <button class="modal-close" id="close-report">✖</button>
+      <h3>Report an Issue</h3>
+      <form id="report-form" class="form">
+        <label>Your Name <input type="text" id="rep-name" required></label>
+        <label>Email <input type="email" id="rep-email" required></label>
+        <label>Issue Type <select id="rep-type"><option>Damaged Item</option><option>Refund</option><option>Wrong Item</option><option>Other</option></select></label>
+        <label>Details <textarea id="rep-details" rows="3" required></textarea></label>
+        <button class="btn" type="submit">Submit Report</button>
+        <div id="rep-msg" class="form-msg"></div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
